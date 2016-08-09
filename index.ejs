@@ -1,0 +1,154 @@
+<%- layout('/layout/modal.ejs') -%>
+
+<%
+devices =  JSON.parse(fs.readFileSync('plugins/pushbullet2/www/bin/devices.json','utf8'));
+%>
+<script>
+/* On récupère en JS la config */
+    devices = <%-JSON.stringify(devices)%>;
+</script>
+
+<p>
+  Ce plugin permet d'envoyer des notifications Pushbullet à la globalité des devices ou sur un appareil bien précis.  
+</p>
+
+<div class="alert alert-info" role="alert">
+  <h4>Auteurs</h4>
+  <p>Frédéric POTTIER (<a href="https://github.com/Wators/">GitHub</a>). Avec l'aide inestimable de J.P. ENCAUSSE.<br>
+  <b>D'après le travail de</b> Aymeric (<a href="https://twitter.com/aymkdn" title="Lien vers mon compte Twitter">Twitter</a> <a href="https://github.com/Aymkdn/">GitHub</a> <a href="http://blog.kodono.info">Blog</a>).</p>
+</div>
+
+<!-- Navigation -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#plugin-version" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-home"></span></a></li>
+  <li><a href="#plugin-notiall" role="tab" data-toggle="tab"><%- i18n('Notification Globale') -%></a></li>
+  <li><a href="#plugin-notione" role="tab" data-toggle="tab"><%- i18n('Notification Sélective') -%></a></li>
+  <li><a href="#plugin-devices" role="tab" data-toggle="tab"><%- i18n('Devices') -%></a></li>
+</ul> 
+
+<div class="tab-content">
+
+<!--Version-->
+<div class="tab-pane active" id="plugin-version">
+<br>
+<pre>
+Les sources sont disponibles sur GitHub: <a href="https://github.com/Wators/SARAH-Plugin-pushbullet2">https://github.com/Wators/SARAH-Plugin-pushbullet2</a>
+et sur <a href="https://github.com/Aymeric/SARAH-Plugin-pushbullet2">https://github.com/Aymeric/SARAH-Plugin-pushbullet2</a> pour le plugin source de Aymeric.    
+</pre>
+
+<h4>Version 2</h4>
+
+<pre>
+[X] Version de Frédéric POTTIER.</pre>
+
+<h4>Version 1</h4>
+
+<pre>
+[X] Version de Aymeric.</pre>
+
+</div>
+
+<!--Notification Globale-->
+<div class="tab-pane" id="plugin-notiall">
+
+<h4>Notification Globale</h4>
+<pre>
+Commençons par configuer le Plugin en entrant votre <b>access token</b> sur le Porlet. Votre <b>access token</b> 
+disponible sur votre compte Pushbullet à l'adresse <a href="https://www.pushbullet.com/account" target="_blank">https://www.pushbullet.com/account</a>. 
+
+Voila, vous pouvez maintenant envoyer une notification globale ou "All" en utilisant : 
+
+  [X]  Soit en direct par l'URL : 
+       <a href="http://127.0.0.1:8080/sarah/pushbullet2?title=mon%20titre&body=mon%20message" target="_blank">http://127.0.0.1:8080/sarah/pushbullet2?title=mon%20titre&body=mon%20message</a>
+
+  [X]  Soit via un autre Plugin par : 
+    <b style="margin-left:15px">SARAH.call('pushbullet2', { "title" : "Titre de la notification", "body" : "Contenu du message" });</b>
+
+  [X]  Soit via le Portlet en laissant "All" (Par défaut) en Id et en appuyant sur "Envoyer".
+</pre>
+</div>
+
+<!--Notification Sélective-->
+<div class="tab-pane" id="plugin-notione">
+
+<h4>Notification Sélective par défaut</h4>
+
+<pre>
+Par defaut, le plugin est conçu pour envoyer une notification sur toutes les devices connectés 
+à votre compte Pushbullet. Mais il est possible de forcer les notifications vers un seul device.
+
+Pour commencer, vous devez passer l'option <b>"Device"</b> en true, enregistrer. 
+Puis envoyez une notification à "All" à partir du Porlet ce qui va sauvegarder les informations
+des devices connectés et actifs dans le fichier <b>devices.json</b>. 
+Vous pouvez repasser l'option <b>"Device"</b> en false par la suite.     
+
+Puis il faut vous rendre sur l'onglet "Devices" où vous avez maintenant la liste 
+de vos devices actifs.
+Repérez le device que vous voulez et récupérez son <b>iden</b>. Et renseignez le champs <b>Device_iden</b> dans la conf.
+du Porlet.
+
+Maintenant les notifications "All" seront rediriger vers le device que vous avez sélectionné.
+</pre>
+
+<h4> Notification Sélective</h4>
+
+<pre>
+Par contre, si vous voulez garder la notification "All" pour tous les devices alors vous ne devez pas 
+configuer le Porlet. 
+Mais vous pouvez quand même notifier sur le device de votre choix en utilisant :
+
+  [X]  Soit en direct par l'URL : 
+  http://127.0.0.1:8080/sarah/pushbullet2?title=mon%20titre&body=mon%20message&id=<b>nickname</b> 
+  qui se trouve dans l'onglet Devices ou dans le fichier devices.json.
+
+  [X]  Soit via un autre Plugin par : 
+<b>SARAH.call('pushbullet2',{"title":"Titre notification","body":"Contenu du message","id":"nickename"});</b>
+
+  [X]  Soit via le Portlet en choisissant l'id du device grace au menu déroulant 
+  et en appuyant sur "Envoyer".      
+</pre> 
+
+</div> 
+
+<!--Info et Actions-->
+<div class="tab-pane" id="plugin-devices">
+<pre><h4>Devices</h4>
+<ul>
+<table>
+
+  <thead>
+    <tr>
+     <td><font color="blue">Nickname</font></td>
+     <td><font color="blue">  Iden</font></td>
+    </tr>
+  </thead>
+
+  <tfoot>
+    <tr>
+     <td></td>
+     <td></td>
+    </tr>
+  </tfoot>
+
+  <tbody>
+    <tr>
+     <th></th>
+     <th> </th>
+    </tr>
+  </tbody>
+
+<% for(var i=1; i < devices.devices.length; i++) { if (devices.devices[i].nickname != null){%>
+  <tbody>
+    <tr>
+     <th><%=devices.devices[i].nickname%></th>
+     <th>  <%=devices.devices[i].iden%></th>
+    </tr>
+  </tbody>
+<% }} %>
+
+</table>
+
+</ul>
+</pre>
+</div> 
+</div>
