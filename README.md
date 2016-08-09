@@ -27,3 +27,13 @@ This plugin is an add-on for the framework [S.A.R.A.H.](http://sarah.encausse.ne
  To Public License, Version 2, as published by S.A.R.A.H. See
  http://www.wtfpl.net/ for more details.
 ```
+
+## Plugin
+
+```
+ Voici ma version de plugin Pushbillet2 de Aymeric.
+ Mon Plugin peut envoyer une notification globale ou sélective sur vos devices.
+ De plus, vous pourrez envoyer une notification depuis le Porlet.
+ 
+ Voir la documentation sur le Porlet afin de configurer le Plugin.
+```
