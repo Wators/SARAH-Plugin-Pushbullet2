@@ -8,7 +8,7 @@ devices =  JSON.parse(fs.readFileSync('plugins/pushbullet2/www/bin/devices.json'
     devices = <%-JSON.stringify(devices)%>;
 </script>
 
-<form id="monForm" action="http://192.168.1.11:8080/sarah/pushbullet2?" method=post>
+<form id="monForm" action="http://127.0.0.1:8080/sarah/pushbullet2?" method=post>
   <div class="formulaire">
     <div class="id">
       <label for="id">Id :</label><br/>
